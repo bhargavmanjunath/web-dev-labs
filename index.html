@@ -6,21 +6,73 @@
 <title>My First Web Page</title>
 </head>
 <body>
-<h1>Hello, Web!</h1>
-<p>This is my first HTML page for this course.</p>
-<h2>About This Page</h2>
-<ul>
-        <li>HTML and CSS</li>
-        <li>Web Development</li>
-        <li>Git and GitHub</li>
-    </ul>
-    <p>
-        A website I find useful is
-        <a href="https://www.w3schools.com/">
-            W3Schools Web Development Resources
-        </a>.
-    </p>
+    <header>
+        <h1>Your Existing Heading</h1>
+        <p>A student project for Web Development I</p>
+    </header>
 
-    <img src="A photo for my web development page.jpg" alt="A photo for my web development page">
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <main>
+<table>
+    <caption>My Course Schedule</caption>
+
+    <thead>
+        <tr>
+            <th>Week</th>
+            <th>Topic</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>4</td>
+            <td>Advanced HTML</td>
+        </tr>
+
+        <tr>
+            <td>5</td>
+            <td>CSS</td>
+        </tr>
+
+        <tr>
+            <td>6</td>
+            <td>Flexbox</td>
+        </tr>
+    </tbody>
+</table>
+
+<form>
+
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="msg">Message</label>
+    <textarea id="msg" name="msg"></textarea>
+
+    <label for="referral">How did you find this page?</label>
+
+    <select id="referral" name="referral">
+        <option value="search">Search engine</option>
+        <option value="social">Social media</option>
+        <option value="friend">A friend</option>
+    </select>
+
+    <button type="submit">Send</button>
+
+</form>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Bhargav M</p>
+    </footer>
 </body>
 </html> 
