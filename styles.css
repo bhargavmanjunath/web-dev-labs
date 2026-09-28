@@ -1,3 +1,5 @@
+/* Bhargav M — Lab 5 */
+
 body {
 font-family: Arial, sans-serif;
 color: #222;
@@ -6,4 +8,91 @@ margin: 40px auto;
 }
 h1 {
 color: #0f9488;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+header {
+    padding: 24px;
+    background-color: #0f9488;
+    color: white;
+    margin-bottom: 16px;
+}
+
+header h1 {
+    color: white;
+}
+
+#main-nav {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    background-color: #0d3b36;
+}
+
+
+#main-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+}
+
+#main-nav a:hover {
+    background-color: #14b8a6;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+thead {
+    background-color: #e6f4f1;
+}
+
+form {
+    margin-top: 16px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-row label {
+    width: 160px;
+    margin-bottom: 0;
+}
+
+input,
+textarea,
+select {
+    padding: 8px;
+    font-size: 16px;
+}
+
+input,
+textarea {
+    width: 100%;
+    max-width: 320px;
+}
+
+textarea {
+    min-height: 100px;
+}
+
+form button {
+    padding: 8px 16px;
+    margin-top: 8px;
 }

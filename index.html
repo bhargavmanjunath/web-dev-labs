@@ -7,15 +7,15 @@
 </head>
 <body>
     <header>
-        <h1>Your Existing Heading</h1>
+        <h1>Hello, World</h1>
         <p>A student project for Web Development I</p>
     </header>
 
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-    </nav>
+    <nav id="main-nav">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+</nav>
 
     <main>
 <table>
@@ -48,25 +48,34 @@
 
 <form>
 
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required>
+    <div class="form-row">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+    </div>
 
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
+    <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+    </div>
 
-    <label for="zip">ZIP Code</label>
-    <input type="text" id="zip" name="zip" pattern="^\d{5}$" required>
+    <div class="form-row">
+        <label for="zip">ZIP Code</label>
+        <input type="text" id="zip" name="zip" pattern="^\d{5}$" required>
+    </div>
 
-    <label for="msg">Message</label>
-    <textarea id="msg" name="msg"></textarea>
+    <div class="form-row">
+        <label for="msg">Message</label>
+        <textarea id="msg" name="msg"></textarea>
+    </div>
 
-    <label for="referral">How did you find this page?</label>
-
-    <select id="referral" name="referral">
-        <option value="search">Search engine</option>
-        <option value="social">Social media</option>
-        <option value="friend">A friend</option>
-    </select>
+    <div class="form-row">
+        <label for="referral">How did you find this page?</label>
+        <select id="referral" name="referral">
+            <option value="search">Search engine</option>
+            <option value="social">Social media</option>
+            <option value="friend">A friend</option>
+        </select>
+    </div>
 
     <button type="submit">Send</button>
 
@@ -79,6 +88,6 @@
     </footer>
 
     <script src="script.js"></script>
-    
+
 </body>
 </html> 
