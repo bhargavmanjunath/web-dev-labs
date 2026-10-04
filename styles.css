@@ -156,15 +156,22 @@ form button {
 }
 
 
-@media (max-width: 600px) {
-    #main-nav {
-        flex-direction: column;
-    }
+#main-nav {
+    flex-direction: column;
+}
 
+@media (min-width: 600px) {
+    #main-nav {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 600px) {
     h1 {
         font-size: 1.5rem;
     }
 }
+
 
 
 @media (max-width: 900px) {
