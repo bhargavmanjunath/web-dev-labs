@@ -1,4 +1,4 @@
-/* Bhargav M — Lab 5 */
+/* Bhargav M — Lab 6 */
 
 body {
 font-family: Arial, sans-serif;
@@ -19,6 +19,9 @@ header {
     background-color: #0f9488;
     color: white;
     margin-bottom: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 header h1 {
@@ -39,8 +42,8 @@ header h1 {
     padding: 12px;
 }
 
-#main-nav a:hover {
-    background-color: #14b8a6;
+#main-nav a {
+    transition: background-color 0.2s ease;
 }
 
 table {
@@ -95,4 +98,83 @@ textarea {
 form button {
     padding: 8px 16px;
     margin-top: 8px;
+}
+.image-card {
+    position: relative;
+    margin: 20px 0;
+}
+
+.image-card img {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+}
+
+.new-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #0f9488;
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+.new-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #0f9488;
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+
+.image-card {
+    position: relative;
+    display: inline-block;
+}
+
+.image-card img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.new-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #dc2626;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    z-index: 5;
+    display: inline-block;
+    width: fit-content;
+}
+
+
+@media (max-width: 600px) {
+    #main-nav {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+
+@media (max-width: 900px) {
+    table,
+    form {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    table {
+        width: 100%;
+    }
 }
