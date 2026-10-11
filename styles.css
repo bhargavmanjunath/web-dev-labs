@@ -185,3 +185,10 @@ form button {
         width: 100%;
     }
 }
+
+/* Lab 7 — Part 4: Dark Mode */
+
+body.dark {
+    background-color: #111827;
+    color: #f1f5f9;
+}
