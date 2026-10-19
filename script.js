@@ -1,4 +1,4 @@
-// Bhargav M — Lab 8
+// Bhargav M — Lab 9
 
 const zipInput = document.getElementById("zip");
 
@@ -97,3 +97,90 @@ goals.forEach(function(goal) {
     item.textContent = goal;
     goalsList.appendChild(item);
 });
+
+
+// Lab 9 — Part 2: Promises
+
+function getGreetingAfterDelay() {
+    return new Promise(function(resolve) {
+        setTimeout(function() {
+            resolve("Hello from the future!");
+        }, 800);
+    });
+}
+
+
+// Lab 9 — Part 3: Async/Await
+
+async function showGreeting() {
+    const message = await getGreetingAfterDelay();
+    console.log(message);
+}
+
+showGreeting();
+
+
+// Lab 9 — Part 4: Fetching Real Data from an API
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const factBtn = document.querySelector("#fact-btn");
+    const factDisplay = document.querySelector("#fact-display");
+
+    async function loadFact() {
+        factDisplay.textContent = "Loading...";
+
+        try {
+            const response = await fetch("https://catfact.ninja/fact");
+
+            if (!response.ok) {
+                throw new Error("Server responded with an error");
+            }
+
+            const data = await response.json();
+            factDisplay.textContent = data.fact;
+
+        } catch (error) {
+            factDisplay.textContent =
+                "Couldn't load a fact right now. Try again.";
+
+            console.error(error);
+        }
+    }
+
+    if (factBtn && factDisplay) {
+        factBtn.addEventListener("click", loadFact);
+    }
+
+});
+
+
+// Lab 9 — Graduate Extension: Promise.all()
+
+async function compareFetchTiming() {
+
+    const url = "https://catfact.ninja/fact";
+
+    // Sequential requests
+    console.time("sequential");
+
+    const a = await (await fetch(url)).json();
+    const b = await (await fetch(url)).json();
+
+    console.timeEnd("sequential");
+
+    // Concurrent requests
+    console.time("concurrent");
+
+    const [respA, respB] = await Promise.all([
+        fetch(url),
+        fetch(url)
+    ]);
+
+    const c = await respA.json();
+    const d = await respB.json();
+
+    console.timeEnd("concurrent");
+}
+
+compareFetchTiming();
