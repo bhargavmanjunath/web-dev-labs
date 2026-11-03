@@ -1,4 +1,4 @@
-// Bhargav M — Lab 9
+// Bhargav M — Lab 10
 
 const zipInput = document.getElementById("zip");
 
@@ -29,14 +29,11 @@ const total = `You have ${count} items`;
 
 console.log(total);
 
-// Lab 7 — Part 3: Like Button
+// Lab 10 — Like Counter with localStorage
 
 const likeBtn = document.querySelector("#like-btn");
 const likeCount = document.querySelector("#like-count");
 const likeMessage = document.querySelector("#like-message");
-
-
- // Lab 8 — Graduate Extension
 
 function updateLikeDisplay(count) {
     likeCount.textContent = `${count} likes`;
@@ -51,11 +48,14 @@ function updateLikeDisplay(count) {
 }
 
 function createLikeCounter() {
-    let likes = 0;
+    let likes = Number(localStorage.getItem("likes")) || 0;
+
+    updateLikeDisplay(likes);
 
     return {
         increment() {
             likes++;
+            localStorage.setItem("likes", likes);
             updateLikeDisplay(likes);
         },
 
@@ -71,20 +71,37 @@ if (likeBtn) {
     likeBtn.addEventListener("click", function() {
         counter.increment();
     });
-} else {
-    console.warn("like-btn not found on this page");
 }
 
 
                  
-// Lab 7 — Part 4: Dark Mode
+// Lab 10 — Dark Mode with localStorage
 
 const themeBtn = document.querySelector("#theme-btn");
 
-themeBtn.addEventListener("click", function() {
-    document.body.classList.toggle("dark");
-});
+// Load saved theme when the page opens
+const savedTheme = localStorage.getItem("theme");
 
+if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+} else {
+    document.body.classList.remove("dark");
+}
+
+// Save theme whenever the button is clicked
+if (themeBtn) {
+    themeBtn.addEventListener("click", function() {
+
+        document.body.classList.toggle("dark");
+
+        if (document.body.classList.contains("dark")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+
+    });
+}
 
  // Lab 8 — Part 2: Arrays and Loops
 
@@ -184,3 +201,52 @@ async function compareFetchTiming() {
 }
 
 compareFetchTiming();
+
+const locationBtn = document.querySelector("#location-btn");
+const locationDisplay = document.querySelector("#location-display");
+
+if (locationBtn && locationDisplay) {
+
+    locationBtn.addEventListener("click", function () {
+
+        // Feature detection
+        if (!("geolocation" in navigator)) {
+
+            locationDisplay.textContent =
+                "Geolocation isn't supported.";
+
+            return;
+        }
+
+        // Request visitor's location
+        navigator.geolocation.getCurrentPosition(
+
+            function (position) {
+
+                const lat =
+                    position.coords.latitude.toFixed(2);
+
+                const lon =
+                    position.coords.longitude.toFixed(2);
+
+                locationDisplay.textContent =
+                    `You're near ${lat}, ${lon}`;
+
+            },
+
+            function (error) {
+
+                locationDisplay.textContent =
+                    "Location access was denied.";
+
+                console.warn(error);
+
+            }
+
+        );
+
+    });
+
+} else {
+    console.warn("Location elements not found on this page.");
+}
