@@ -209,3 +209,36 @@
   } else {
     console.warn("Location elements not found on this page.");
   }
+
+  
+  // Lab 11 — Graduate Extension: Generic Functions
+
+  function saveToStorage<T>(key: string, value: T): void {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  function loadFromStorage<T>(key: string): T | null {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) as T : null;
+  }
+
+
+  
+  // Test 1 — Number
+  saveToStorage<number>("lab11Likes", 5);
+
+  const savedLikes = loadFromStorage<number>("lab11Likes");
+
+  console.log("Graduate Test 1 - Number:", savedLikes);
+
+  // Test 2 — CatFact object
+  const exampleFact: CatFact = {
+    fact: "Cats sleep many hours each day.",
+    length: 31
+  };
+
+  saveToStorage<CatFact>("lastFact", exampleFact);
+
+  const savedFact = loadFromStorage<CatFact>("lastFact");
+
+  console.log("Graduate Test 2 - CatFact:", savedFact);
