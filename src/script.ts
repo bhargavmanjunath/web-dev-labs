@@ -1,5 +1,5 @@
 
-  // Bhargav M — Lab 11
+  // Bhargav M — Lab 12
 
   // ZIP Code Validation
   const zipInput = document.querySelector<HTMLInputElement>("#zip");
@@ -26,10 +26,10 @@
   const total: string = `You have ${count} items`;
   console.log(total);
 
-  // Lab 10 — Like Counter with localStorage
-  const likeBtn = document.querySelector<HTMLButtonElement>("#like-btn");
-  const likeCount = document.querySelector<HTMLElement>("#like-count");
-  const likeMessage = document.querySelector<HTMLElement>("#like-message");
+  // Lab 12 — Part 1: Precise DOM Element Types
+const likeBtn = document.querySelector<HTMLButtonElement>("#like-btn");
+const likeCount = document.querySelector<HTMLParagraphElement>("#like-count");
+const likeMessage = document.querySelector<HTMLElement>("#like-message");
 
   const LikeCounter = {
     likes: Number(localStorage.getItem("likes")) || 0,
@@ -59,21 +59,35 @@
 
   LikeCounter.render();
 
-  if (likeBtn) {
-    likeBtn.addEventListener("click", function (): void {
-      LikeCounter.increment();
-    });
-  }
+  if (likeBtn && likeCount) {
+  likeBtn.addEventListener("click", function (): void {
+    LikeCounter.increment();
+  });
+} else {
+  console.warn("Like button or count element missing from the page");
+}
 
   // Lab 10 — Dark Mode with localStorage
   const themeBtn = document.querySelector<HTMLButtonElement>("#theme-btn");
-  const savedTheme = localStorage.getItem("theme");
+ // Lab 12 — Part 4: Literal Types
 
-  if (savedTheme === "dark") {
+type Theme = "light" | "dark";
+
+function getStoredTheme(): Theme {
+  return localStorage.getItem("theme") === "dark"
+    ? "dark"
+    : "light";
+}
+
+function applyStoredTheme(): void {
+  if (getStoredTheme() === "dark") {
     document.body.classList.add("dark");
   } else {
     document.body.classList.remove("dark");
   }
+}
+
+applyStoredTheme();
 
   if (themeBtn) {
     themeBtn.addEventListener("click", function (): void {
@@ -181,6 +195,20 @@
 
   compareFetchTiming().catch(console.error);
 
+// Lab 12 — Part 3: Optional Properties and Interfaces
+
+interface UserLocation {
+  latitude: number;
+  longitude: number;
+  accuracy?: number;
+}
+
+// Lab 12 — Graduate Extension: Utility Types
+
+type PartialLocation = Partial<UserLocation>;
+
+type FixedLocation = Readonly<Required<UserLocation>>;
+
   // Lab 10 — Geolocation API
   const locationBtn = document.querySelector<HTMLButtonElement>("#location-btn");
   const locationDisplay = document.querySelector<HTMLElement>("#location-display");
@@ -194,11 +222,15 @@
 
       navigator.geolocation.getCurrentPosition(
         function (position: GeolocationPosition): void {
-          const lat = position.coords.latitude.toFixed(2);
-          const lon = position.coords.longitude.toFixed(2);
+  const here: UserLocation = {
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude,
+    accuracy: position.coords.accuracy
+  };
 
-          locationDisplay.textContent = `You're near ${lat}, ${lon}`;
-        },
+  locationDisplay.textContent =
+    `You're near ${here.latitude.toFixed(2)}, ${here.longitude.toFixed(2)}`;
+},
 
         function (error: GeolocationPositionError): void {
           locationDisplay.textContent = "Location access was denied.";
@@ -242,3 +274,52 @@
   const savedFact = loadFromStorage<CatFact>("lastFact");
 
   console.log("Graduate Test 2 - CatFact:", savedFact);
+
+  // Lab 12 — Part 2: Union Types and Narrowing
+
+function formatLikes(value: number | string): string {
+  if (typeof value === "string") {
+    return `${parseInt(value, 10)} likes`;
+  }
+
+  return `${value} likes`;
+}
+
+// Test with a number
+console.log(formatLikes(7));
+
+// Test with a string
+console.log(formatLikes("7"));
+
+// Graduate Extension — PartialLocation Test
+
+function demoPartialLocation(): void {
+  const empty: PartialLocation = {};
+
+  console.log(
+    "PartialLocation with no properties at all is valid:",
+    empty
+  );
+}
+
+// Graduate Extension — FixedLocation Test
+
+function demoFixedLocation(): void {
+  const fixed: FixedLocation = {
+    latitude: 41.88,
+    longitude: -87.63,
+    accuracy: 10
+  };
+
+  console.log(
+    "FixedLocation value (read-only, all three properties guaranteed present):",
+    fixed.latitude,
+    fixed.longitude,
+    fixed.accuracy
+  );
+
+ // fixed.latitude = 50;
+}
+
+demoPartialLocation();
+demoFixedLocation();

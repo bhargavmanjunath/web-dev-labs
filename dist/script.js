@@ -1,5 +1,5 @@
 "use strict";
-// Bhargav M — Lab 11
+// Bhargav M — Lab 12
 // ZIP Code Validation
 const zipInput = document.querySelector("#zip");
 const zipPattern = /^\d{5}$/;
@@ -19,7 +19,7 @@ console.log(`${studentName} has completed ${labsCompleted} labs.`);
 const count = 5;
 const total = `You have ${count} items`;
 console.log(total);
-// Lab 10 — Like Counter with localStorage
+// Lab 12 — Part 1: Precise DOM Element Types
 const likeBtn = document.querySelector("#like-btn");
 const likeCount = document.querySelector("#like-count");
 const likeMessage = document.querySelector("#like-message");
@@ -48,20 +48,30 @@ const LikeCounter = {
     }
 };
 LikeCounter.render();
-if (likeBtn) {
+if (likeBtn && likeCount) {
     likeBtn.addEventListener("click", function () {
         LikeCounter.increment();
     });
 }
+else {
+    console.warn("Like button or count element missing from the page");
+}
 // Lab 10 — Dark Mode with localStorage
 const themeBtn = document.querySelector("#theme-btn");
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme === "dark") {
-    document.body.classList.add("dark");
+function getStoredTheme() {
+    return localStorage.getItem("theme") === "dark"
+        ? "dark"
+        : "light";
 }
-else {
-    document.body.classList.remove("dark");
+function applyStoredTheme() {
+    if (getStoredTheme() === "dark") {
+        document.body.classList.add("dark");
+    }
+    else {
+        document.body.classList.remove("dark");
+    }
 }
+applyStoredTheme();
 if (themeBtn) {
     themeBtn.addEventListener("click", function () {
         document.body.classList.toggle("dark");
@@ -150,9 +160,13 @@ if (locationBtn && locationDisplay) {
             return;
         }
         navigator.geolocation.getCurrentPosition(function (position) {
-            const lat = position.coords.latitude.toFixed(2);
-            const lon = position.coords.longitude.toFixed(2);
-            locationDisplay.textContent = `You're near ${lat}, ${lon}`;
+            const here = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                accuracy: position.coords.accuracy
+            };
+            locationDisplay.textContent =
+                `You're near ${here.latitude.toFixed(2)}, ${here.longitude.toFixed(2)}`;
         }, function (error) {
             locationDisplay.textContent = "Location access was denied.";
             console.warn(error);
@@ -182,3 +196,31 @@ const exampleFact = {
 saveToStorage("lastFact", exampleFact);
 const savedFact = loadFromStorage("lastFact");
 console.log("Graduate Test 2 - CatFact:", savedFact);
+// Lab 12 — Part 2: Union Types and Narrowing
+function formatLikes(value) {
+    if (typeof value === "string") {
+        return `${parseInt(value, 10)} likes`;
+    }
+    return `${value} likes`;
+}
+// Test with a number
+console.log(formatLikes(7));
+// Test with a string
+console.log(formatLikes("7"));
+// Graduate Extension — PartialLocation Test
+function demoPartialLocation() {
+    const empty = {};
+    console.log("PartialLocation with no properties at all is valid:", empty);
+}
+// Graduate Extension — FixedLocation Test
+function demoFixedLocation() {
+    const fixed = {
+        latitude: 41.88,
+        longitude: -87.63,
+        accuracy: 10
+    };
+    console.log("FixedLocation value (read-only, all three properties guaranteed present):", fixed.latitude, fixed.longitude, fixed.accuracy);
+    // fixed.latitude = 50;
+}
+demoPartialLocation();
+demoFixedLocation();
